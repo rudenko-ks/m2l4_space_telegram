@@ -9,3 +9,6 @@
 
 # Images
 **/*.jpeg
+**/*.jpg
+**/*.png
+**/*.gif

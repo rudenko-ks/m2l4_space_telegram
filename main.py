@@ -1,5 +1,10 @@
-import requests
+import os.path
+import urllib.parse
+
 from pathlib import Path
+from webbrowser import get
+
+import requests
 
 SPCX_LAUNCH_ID = "5eb87ce3ffd86e000604b336"
 
@@ -11,9 +16,15 @@ def download_images(images_urls: list, path: str) -> None:
         response = requests.get(image_url)
         response.raise_for_status()
         
-        filename = f"spacex_{img_number}.jpeg"
+        file_extension = get_file_extension(image_url)
+        filename = f"spacex_{img_number}{file_extension}"
         with open(path + filename, "wb") as file:
             file.write(response.content)
+
+
+def get_file_extension(images_url: str) -> str:
+    parsed_url = urllib.parse.urlparse(images_url)
+    return os.path.splitext(parsed_url.path)[1]
 
 
 def fetch_spacex_last_launch(launch_id: str) -> None:
@@ -22,10 +33,10 @@ def fetch_spacex_last_launch(launch_id: str) -> None:
     
     response = requests.get(spacex_api_url)
     response.raise_for_status()
-    launch = response.json()
+    spcx_launch_info = response.json()
     
-    launch_images_urls = launch["links"]["flickr"]["original"]
-    download_images(launch_images_urls, img_folder_path)
+    spcx_launch_images_urls = spcx_launch_info["links"]["flickr"]["original"]
+    download_images(spcx_launch_images_urls, img_folder_path)
 
 
 def main():

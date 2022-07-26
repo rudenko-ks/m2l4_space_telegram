@@ -12,4 +12,7 @@
 #**/*.jpg
 #**/*.png
 #**/*.gif
+
+# Folders
+__pycache__
 images/

@@ -19,7 +19,7 @@ def download_images(images_urls: list, file_path: str, file_name: str, token: st
             response = requests.get(image_url, params=params)
             response.raise_for_status()
 
-            file_extension = get_file_extension(image_url)
+            file_extension = get_file_extension(image_url) 
             if not file_extension:
                 print(f"The file extension cannot be recognized. Wrong link:\n{image_url}")
                 continue

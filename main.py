@@ -8,7 +8,8 @@ from fetch_spacex_last_launch_photos import fetch_spacex_last_launch_photos
 
 def main():
     SPCX_LAUNCH_ID = "5eb87ce3ffd86e000604b336"
-    fetch_spacex_last_launch_photos(SPCX_LAUNCH_ID)
+    #fetch_spacex_last_launch_photos(SPCX_LAUNCH_ID)
+    fetch_spacex_last_launch_photos()
 
     NASA_API_TOKEN = os.environ['NASA_API_TOKEN']
     fetch_nasa_daytime_photos(NASA_API_TOKEN)

@@ -1,5 +1,7 @@
+import os
 import datetime
 import requests
+from dotenv import load_dotenv
 from general_functions import download_images
 
 
@@ -22,3 +24,12 @@ def fetch_nasa_epic_photos(token: str) -> None:
     img_folder_path = "./images/"
     img_name_template = "nasa_epic_"
     download_images(nasa_epic_photos_urls, img_folder_path, img_name_template, token)
+
+
+def main():
+    load_dotenv()
+    NASA_API_TOKEN = os.environ['NASA_API_TOKEN']
+    fetch_nasa_epic_photos(NASA_API_TOKEN)
+
+if __name__ == '__main__':
+    main()

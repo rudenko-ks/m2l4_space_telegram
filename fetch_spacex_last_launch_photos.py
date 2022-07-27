@@ -1,7 +1,7 @@
 import argparse
 from argparse import RawTextHelpFormatter
-from general_functions import download_images
 import requests
+from general_functions import download_images
 
 
 def get_last_launch_with_photos() -> dict:
@@ -29,16 +29,19 @@ def fetch_spacex_last_launch_photos(launch_id: str = None) -> None:
     download_images(spcx_launch_images_urls, img_folder_path, img_name_template)
 
 
-def main():
+def create_argparser() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="""\
-        Скрипт возвращает фотографии запуска космического короабля SpaceX по id запуска.\n
+        Скрипт возвращает фотографии запуска космического корабля SpaceX по id запуска.\n
         При отсутсвии id возвращает фотографии последнего запуска\n
         Пример id запуска: 5eb87ce3ffd86e000604b336""",
         formatter_class=RawTextHelpFormatter
     )
     parser.add_argument('-id', help='id запуска')
-    args = parser.parse_args()
+    return parser.parse_args()
+
+def main():
+    args = create_argparser()
     fetch_spacex_last_launch_photos(args.id)
 
 if __name__ == '__main__':

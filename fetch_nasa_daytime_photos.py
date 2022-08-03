@@ -36,8 +36,8 @@ def create_argparser() -> argparse.Namespace:
 def main():
     load_dotenv()
     args = create_argparser()
-    NASA_API_TOKEN = os.environ['NASA_API_TOKEN']
-    fetch_nasa_daytime_photos(NASA_API_TOKEN, args.count)
+    nasa_api_token = os.environ['NASA_API_TOKEN']
+    fetch_nasa_daytime_photos(nasa_api_token, args.count)
 
 if __name__ == '__main__':
     main()

@@ -28,8 +28,8 @@ def fetch_nasa_epic_photos(token: str) -> None:
 
 def main():
     load_dotenv()
-    NASA_API_TOKEN = os.environ['NASA_API_TOKEN']
-    fetch_nasa_epic_photos(NASA_API_TOKEN)
+    nasa_api_token = os.environ['NASA_API_TOKEN']
+    fetch_nasa_epic_photos(nasa_api_token)
 
 if __name__ == '__main__':
     main()

@@ -7,7 +7,7 @@ from general_functions import download_images
 
 
 def fetch_nasa_daytime_photos(token: str, count: int) -> None:
-    if not count: count = 10
+    if not count: count = 5
     params = (
         ("api_key", token),
         ("count", count),
@@ -26,7 +26,7 @@ def create_argparser() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="""\
         Скрипт возвращает указанное количество Astronomy Picture of the Day (APOD) фотографий сделанные NASA.\n
-        По умолчанию скрипт возвращает 10 фотографий""",
+        По умолчанию скрипт возвращает 5 фотографий""",
         formatter_class=RawTextHelpFormatter
     )
     parser.add_argument('-count', help='Количество запрашиваемых фотографий', type=int)

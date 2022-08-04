@@ -6,6 +6,7 @@
 # Environments
 .env
 .venv
+.vscode
 
 # Images
 #**/*.jpeg

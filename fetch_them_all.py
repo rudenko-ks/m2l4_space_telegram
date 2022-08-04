@@ -11,7 +11,7 @@ def main():
     fetch_spacex_last_launch_photos()
 
     nasa_api_token = os.environ['NASA_API_TOKEN']
-    fetch_nasa_daytime_photos(nasa_api_token, count=15)
+    fetch_nasa_daytime_photos(nasa_api_token, count=5)
     fetch_nasa_epic_photos(nasa_api_token)
 
 if __name__ == "__main__":

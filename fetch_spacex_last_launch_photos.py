@@ -40,6 +40,7 @@ def create_argparser() -> argparse.Namespace:
     parser.add_argument('-id', help='id запуска')
     return parser.parse_args()
 
+
 def main():
     args = create_argparser()
     fetch_spacex_last_launch_photos(args.id)

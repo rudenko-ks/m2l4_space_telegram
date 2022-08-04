@@ -39,7 +39,9 @@ python fetch_nasa_daytime_photos.py [-h] [-count COUNT]
 ```
 
 options: 
+
 `-h, --help` show this help message and exit 
+
 `-count COUNT` Number of photos to download
 
 #### fetch_nasa_epic_photos.py
@@ -56,7 +58,9 @@ Example launch id: `5eb87ce3ffd86e000604b336`
 python fetch_spacex_last_launch_photos.py [-h] [-id ID] 
 ```
 options:
+
 `-h, --help` show this help message and exit
+
 `-id ID` launch id
 
 #### fetch_them_all.py
@@ -72,7 +76,9 @@ If the 'period' parameter is missing, the publication occurs every 4 hours.
 python posting_in_tg_channel.py [-h] [-period PERIOD]
 ```
 options:
+
 `-h, --help`      show this help message and exit
+
 `-period PERIOD` frequency of posting pictures in hours
 
 ### Project Goals

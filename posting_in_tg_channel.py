@@ -21,6 +21,7 @@ def create_argparser() -> argparse.Namespace:
 
 def main():
     load_dotenv()
+    telegram_chat_id = os.environ['TELEGRAM_CHAT_ID']
     args = create_argparser()
     img_folder_path = "./images/"
     telegram_bot_token = os.environ['TELEGRAM_TOKEN']
@@ -32,7 +33,7 @@ def main():
             if imgs_in_folder:
                 rand_img=random.choice(imgs_in_folder)
                 bot.send_photo(
-                    chat_id="@DvmnLrng",
+                    chat_id=telegram_chat_id,
                     photo=open(f'{img_folder_path}{rand_img}', 'rb')
                     )
             else:

@@ -4,19 +4,11 @@ from pathlib import Path
 import requests
 
 
-def download_images(images_urls: list, file_path: str, file_name: str, token: str = None) -> None:
+def download_images(images_urls: list, file_path: str, file_name: str, url_params: dict = None) -> None:
     Path(file_path).mkdir(parents=True, exist_ok=True)
-
-    if token:
-        params = (
-            ("api_key", token),
-        )
-    else:
-        params = None
-    
     for img_number, image_url in enumerate(images_urls):
         try:
-            response = requests.get(image_url, params=params)
+            response = requests.get(image_url, params=url_params)
             response.raise_for_status()
 
             file_extension = get_file_extension(image_url) 

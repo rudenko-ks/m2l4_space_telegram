@@ -23,7 +23,7 @@ def fetch_nasa_epic_photos(token: str) -> None:
     
     img_folder_path = "./images/"
     img_name_template = "nasa_epic_"
-    download_images(nasa_epic_photos_urls, img_folder_path, img_name_template, token)
+    download_images(nasa_epic_photos_urls, img_folder_path, img_name_template, params)
 
 
 def main():

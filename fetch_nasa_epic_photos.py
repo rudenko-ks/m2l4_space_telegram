@@ -11,12 +11,12 @@ def fetch_nasa_epic_photos(token: str) -> None:
     )
     response = requests.get("https://api.nasa.gov/EPIC/api/natural/images", params=params)
     response.raise_for_status()
-    nasa_epic_photos_info = response.json()
+    photos_collection_with_metadata = response.json()
     
     nasa_epic_photos_urls = []
-    for nasa_epic_photo_info in nasa_epic_photos_info:
-        img_name = nasa_epic_photo_info["image"]
-        img_datetime = nasa_epic_photo_info["date"].split()
+    for photo_metadata in photos_collection_with_metadata:
+        img_name = photo_metadata["image"]
+        img_datetime = photo_metadata["date"].split()
         img_date = datetime.date.fromisoformat(img_datetime[0])
         url = f"https://api.nasa.gov/EPIC/archive/natural/{img_date.year}/{img_date.strftime('%m')}/{img_date.strftime('%d')}/png/{img_name}.png"
         nasa_epic_photos_urls.append(url)

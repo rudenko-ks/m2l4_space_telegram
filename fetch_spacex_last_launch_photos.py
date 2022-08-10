@@ -7,8 +7,8 @@ from general_functions import download_images
 def get_last_launch_with_photos() -> dict:
     response = requests.get("https://api.spacexdata.com/v5/launches/")
     response.raise_for_status()
-    spcx_launches_info = response.json()
-    return [spcx_launch_info for spcx_launch_info in spcx_launches_info if spcx_launch_info["links"]["flickr"]["original"]].pop()
+    spcx_launches_collection = response.json()
+    return [spcx_launch for spcx_launch in spcx_launches_collection if spcx_launch["links"]["flickr"]["original"]].pop()
 
 
 def get_launch_by_id(launch_id: str) -> dict:
@@ -19,13 +19,13 @@ def get_launch_by_id(launch_id: str) -> dict:
 
 def fetch_spacex_last_launch_photos(launch_id: str = None) -> None:
     if not launch_id:
-        spcx_launch_info = get_last_launch_with_photos()
+        spcx_launch = get_last_launch_with_photos()
     else:
-        spcx_launch_info = get_launch_by_id(launch_id)
+        spcx_launch = get_launch_by_id(launch_id)
     
     img_folder_path = "./images/"
     img_name_template = "spacex_"
-    spcx_launch_images_urls = spcx_launch_info["links"]["flickr"]["original"]
+    spcx_launch_images_urls = spcx_launch["links"]["flickr"]["original"]
     download_images(spcx_launch_images_urls, img_folder_path, img_name_template)
 
 

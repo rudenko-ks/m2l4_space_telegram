@@ -3,6 +3,7 @@ import random
 import argparse
 import time
 from argparse import RawTextHelpFormatter
+from unittest.mock import DEFAULT
 from dotenv import load_dotenv
 import telegram
 
@@ -14,7 +15,7 @@ def create_argparser() -> argparse.Namespace:
         При отсутсвии параметра 'period' публикация происходит каждые 4 часа.""",
         formatter_class=RawTextHelpFormatter
     )
-    parser.add_argument('-period', help='периодичность публикации картинок в часах', type=float)
+    parser.add_argument('-period', help='периодичность публикации картинок в часах', type=float, default=4)
     return parser.parse_args()
 
 
@@ -23,11 +24,8 @@ def main():
     args = create_argparser()
     img_folder_path = "./images/"
     telegram_bot_token = os.environ['TELEGRAM_TOKEN']
-    photo_posting_period = os.environ['PHOTO_POSTING_PERIOD']
     bot = telegram.Bot(telegram_bot_token)
     
-    if args.period: photo_posting_period = args.period
-
     while True:
         try:
             imgs_in_folder=os.listdir(img_folder_path)
@@ -41,7 +39,7 @@ def main():
                 print("Images folder is empty!")
         except FileNotFoundError:
             print("Images folder doesn't exist!")
-        time.sleep(float(photo_posting_period)*3600)
+        time.sleep(float(args.period)*3600)
 
 if __name__ == '__main__':
     main()

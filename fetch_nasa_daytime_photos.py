@@ -4,22 +4,27 @@ from argparse import RawTextHelpFormatter
 from wsgiref.simple_server import demo_app
 import requests
 from dotenv import load_dotenv
-from general_functions import download_images
+from general_functions import download_images, get_file_extension
 
 
 def fetch_nasa_daytime_photos(token: str, count: int) -> None:
+    img_folder_path = "./images/"
+    img_name_template = "nasa_apod_"
     params = (
         ("api_key", token),
         ("count", count),
     )
-    response = requests.get("https://api.nasa.gov/planetary/apod", params=params)
-    response.raise_for_status()
-    photos_collection_with_metadata = response.json()
-    
-    img_folder_path = "./images/"
-    img_name_template = "nasa_apod_"
-    daytime_photos_urls = [photo_metadata["url"] for photo_metadata in photos_collection_with_metadata]
-    download_images(daytime_photos_urls, img_folder_path, img_name_template)
+    try:
+        response = requests.get("https://api.nasa.gov/planetary/apod", params=params)
+        response.raise_for_status()
+        
+        photos_collection_with_metadata = response.json()
+        daytime_photos_urls = [photo_metadata["url"] for photo_metadata in photos_collection_with_metadata]
+        
+        download_images(daytime_photos_urls, img_folder_path, img_name_template)
+    except requests.exceptions.RequestException as error:
+        print('Request error:\n', error.response)
+        print('Request error text:\n', error.response.text)
 
 
 def create_argparser() -> argparse.Namespace:

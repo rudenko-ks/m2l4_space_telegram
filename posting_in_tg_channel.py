@@ -32,9 +32,10 @@ def main():
             imgs_in_folder=os.listdir(img_folder_path)
             if imgs_in_folder:
                 rand_img=random.choice(imgs_in_folder)
-                bot.send_photo(
-                    chat_id=telegram_chat_id,
-                    photo=open(f'{img_folder_path}{rand_img}', 'rb')
+                with open(f'{img_folder_path}{rand_img}', 'rb') as img:
+                    bot.send_photo(
+                        chat_id=telegram_chat_id,
+                        photo=img
                     )
             else:
                 print("Images folder is empty!")

@@ -2,8 +2,8 @@ import os
 import random 
 import argparse
 import time
+from pathlib import Path
 from argparse import RawTextHelpFormatter
-from unittest.mock import DEFAULT
 from dotenv import load_dotenv
 import telegram
 
@@ -21,9 +21,9 @@ def create_argparser() -> argparse.Namespace:
 
 def main():
     load_dotenv()
-    telegram_chat_id = os.environ['TELEGRAM_CHAT_ID']
     args = create_argparser()
-    img_folder_path = "./images/"
+    img_folder_path = "images"
+    telegram_chat_id = os.environ['TELEGRAM_CHAT_ID']
     telegram_bot_token = os.environ['TELEGRAM_TOKEN']
     bot = telegram.Bot(telegram_bot_token)
     
@@ -32,7 +32,8 @@ def main():
             imgs_in_folder=os.listdir(img_folder_path)
             if imgs_in_folder:
                 rand_img=random.choice(imgs_in_folder)
-                with open(f'{img_folder_path}{rand_img}', 'rb') as img:
+                file = Path(img_folder_path, rand_img)
+                with open(file, 'rb') as img:
                     bot.send_photo(
                         chat_id=telegram_chat_id,
                         photo=img

@@ -6,7 +6,7 @@ from general_functions import download_images
 
 
 def fetch_nasa_epic_photos(token: str) -> None:
-    img_folder_path = "./images/"
+    img_folder_path = "images"
     img_name_template = "nasa_epic_"
     params = (
         ("api_key", token),

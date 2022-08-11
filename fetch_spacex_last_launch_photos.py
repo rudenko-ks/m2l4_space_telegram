@@ -18,7 +18,7 @@ def get_launch_by_id(launch_id: str) -> dict:
 
 
 def fetch_spacex_last_launch_photos(launch_id: str = None) -> None:
-    img_folder_path = "./images/"
+    img_folder_path = "images"
     img_name_template = "spacex_"
     try:
         if not launch_id:

@@ -8,7 +8,7 @@ from general_functions import download_images, get_file_extension
 
 
 def fetch_nasa_daytime_photos(token: str, count: int) -> None:
-    img_folder_path = "./images/"
+    img_folder_path = "images"
     img_name_template = "nasa_apod_"
     params = (
         ("api_key", token),

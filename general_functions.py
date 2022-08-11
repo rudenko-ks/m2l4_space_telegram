@@ -1,7 +1,7 @@
 import os.path
-import urllib.parse
 from pathlib import Path
 import requests
+import urllib.parse
 
 
 def download_images(images_urls: list, file_path: str, file_name: str, url_params: dict = None) -> None:
@@ -14,7 +14,8 @@ def download_images(images_urls: list, file_path: str, file_name: str, url_param
         response.raise_for_status()
         
         filename = f"{file_name}{img_number}{file_extension}"
-        with open(file_path + filename, "wb") as file:
+        file = Path(file_path, filename)
+        with open(file, "wb") as file:
             file.write(response.content)
 
 

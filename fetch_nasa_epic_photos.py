@@ -11,29 +11,29 @@ def fetch_nasa_epic_photos(token: str) -> None:
     params = (
         ("api_key", token),
     )
-    try:
-        response = requests.get("https://api.nasa.gov/EPIC/api/natural/images", params=params)
-        response.raise_for_status()
-        photos_collection_with_metadata = response.json()
-        
-        nasa_epic_photos_urls = []
-        for photo_metadata in photos_collection_with_metadata:
-            img_name = photo_metadata["image"]
-            img_datetime = photo_metadata["date"].split()
-            img_date = datetime.date.fromisoformat(img_datetime[0])
-            url = f"https://api.nasa.gov/EPIC/archive/natural/{img_date.year}/{img_date.strftime('%m')}/{img_date.strftime('%d')}/png/{img_name}.png"
-            nasa_epic_photos_urls.append(url)
+    response = requests.get("https://api.nasa.gov/EPIC/api/natural/images", params=params)
+    response.raise_for_status()
+    photos_collection_with_metadata = response.json()
+    
+    nasa_epic_photos_urls = []
+    for photo_metadata in photos_collection_with_metadata:
+        img_name = photo_metadata["image"]
+        img_datetime = photo_metadata["date"].split()
+        img_date = datetime.date.fromisoformat(img_datetime[0])
+        url = f"https://api.nasa.gov/EPIC/archive/natural/{img_date.year}/{img_date.strftime('%m')}/{img_date.strftime('%d')}/png/{img_name}.png"
+        nasa_epic_photos_urls.append(url)
 
-        download_images(nasa_epic_photos_urls, img_folder_path, img_name_template, params)
-    except requests.exceptions.RequestException as error:
-        print('Request error:\n', error.response)
-        print('Request error text:\n', error.response.text)    
+    download_images(nasa_epic_photos_urls, img_folder_path, img_name_template, params)
 
 
 def main():
     load_dotenv()
     nasa_api_token = os.environ['NASA_API_TOKEN']
-    fetch_nasa_epic_photos(nasa_api_token)
+    try:
+        fetch_nasa_epic_photos(nasa_api_token)
+    except requests.exceptions.RequestException as error:
+        print('Request error:\n', error.response)
+        print('Request error text:\n', error.response.text)    
 
 if __name__ == '__main__':
     main()
